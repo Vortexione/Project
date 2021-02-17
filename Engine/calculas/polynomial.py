@@ -126,9 +126,9 @@ def Expo(x,**karg):
     while 1/Fac(i)>=0.5*10**(-dec):
         i+=1
     if i>=n:
-        i=n
-    else:
         pass
+    else:
+        i=n
     #Solution:
     su=[]
     for k in range(dn):
@@ -143,5 +143,3 @@ def Expo(x,**karg):
         return su[0]
     else:
         return su
-
-help(Expo)
