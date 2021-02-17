@@ -86,3 +86,62 @@ def Hermite(x,n):
             H0=H1
             H1=Hn
         return Hn
+def Expo(x,**karg):
+    '''
+    determine the exponential value of all elements.
+
+    ..version:: 0.0.1
+
+    parameter:
+    ---------
+    x : float,int,list 
+        Input values
+    order : int,optional
+        Specify the order of the apporximation.
+    decimal : int,optional
+        Specify the decimal accuracy of the approximation.
+    return:
+    ------
+    out : float,list
+        output element-wise exponential of `x`.
+    '''
+    #param Handling:
+    if type(x)==list:
+        pass
+    else:
+        x=[x]
+    #Run-time Error:
+    try:
+        dec=karg['decimal']
+    except:
+        dec=16
+    try:
+        n=karg['order']
+    except:
+        n=19
+    #itarator start:
+    dn=len(x)
+    i=0
+    #finding best possible solution:
+    while 1/Fac(i)>=0.5*10**(-dec):
+        i+=1
+    if i>=n:
+        i=n
+    else:
+        pass
+    #Solution:
+    su=[]
+    for k in range(dn):
+        mul=1
+        s0u=0
+        for j in range(i+1):
+            s0u=s0u+mul
+            mul=mul*x[k]/(j+1)
+        su.append(s0u)
+    #responses:        
+    if len(x)==1:
+        return su[0]
+    else:
+        return su
+
+help(Expo)
