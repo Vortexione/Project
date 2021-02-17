@@ -1,0 +1,7 @@
+{
+    "python.pythonPath": "python",
+    "python.linting.enabled": false,
+    "git.enableSmartCommit": true,
+    
+}
+
