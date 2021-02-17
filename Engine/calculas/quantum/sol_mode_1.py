@@ -56,7 +56,7 @@ ax.axvline(x=0,ls='--',c='#3785DF',lw=0.5)
 ax.grid(which='major',ls='--',c='#3785DF',lw=0.3)
 ax.grid(which='minor',ls=':',c='#3785DF',lw=0.2)
 
-#Spin Handling:
+#Spine Handling:
 
 ax.spines['left'].set_color('#3785DF')
 ax.spines['right'].set_color('#3785DF')
