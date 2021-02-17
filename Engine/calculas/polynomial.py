@@ -72,3 +72,17 @@ def Fac(num):
         for i in range(1,num+1,1):
             f=f*i
         return f
+
+def Hermite(x,n):
+    H0=1
+    H1=2*x
+    if(n==0):
+        return H0
+    if(n==1):
+        return H1
+    elif(n>=2):
+        for i in range(1,n,1):
+            Hn=2*x*H1-2*i*H0
+            H0=H1
+            H1=Hn
+        return Hn
