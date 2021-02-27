@@ -18,24 +18,26 @@ dom=[1e-10,20]
 n=1000
  
 #Intial Boundary of energy for which U, Wave function goes to +inf and -inf.
-en1 =-1              
-en2 =1
+en1 =-12              
+en2 =-15
  
 #Intialisation of loop :last value of U, Wave function.               
 Uf3=1
         
-while(abs(Uf3)>= 0.0001):    #condition to repeat with accuracy
+while(abs(Uf3)> 0.01):    #condition to repeat with accuracy
     
     r,U,zU,Uf1,zUf1=ODE2('z','-(2*({}/{}))*({}+(({}*{})/x))*y'.format(m,h,en1,e,e),nsteps=n,inix=dom[0],iniy=0,iniz=1,finx=dom[1])
     r,U,zU,Uf2,zUf2=ODE2('z','-(2*({}/{}))*({}+(({}*{})/x))*y'.format(m,h,en2,e,e),nsteps=n,inix=dom[0],iniy=0,iniz=1,finx=dom[1])
     en3 = 0.5*(en1+en2)
     print(en3)
     r,U,zU,Uf3,zUf3=ODE2('z','-(2*({}/{}))*({}+(({}*{})/x))*y'.format(m,h,en3,e,e),nsteps=n,inix=dom[0],iniy=0,iniz=1,finx=dom[1])
-
+    print(U[-1])
     if (Uf1*Uf3 > 0 ) :
         en1 = en3
     elif(Uf1*Uf3 < 0) :
         en2 = en3
+    
+
 
 style.use('dark_background')   
 fig,ax=plt.subplots(ncols=1,nrows=1)  
