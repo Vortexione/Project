@@ -188,7 +188,7 @@ for j in nodes:
     psi=(1/norm)*psi
     plt.plot(x,psi)
     plt.show()
-
+# |!| graphical unit will update soon.
 
 
 
