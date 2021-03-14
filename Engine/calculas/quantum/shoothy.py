@@ -1,6 +1,7 @@
 #..Author :: Suman Mandal 
 import numpy as np
 import matplotlib.pyplot as plt
+
 def insolent(func,t_span,y0,mxtep,arg=()):
     '''
     Return Solution of a Given `Funtion` .
@@ -46,6 +47,7 @@ def insolent(func,t_span,y0,mxtep,arg=()):
         z2e=z2e+l
         Z2.append(z2e)
     return [x,Z1,Z2]
+
 def newtson(func,t,arg=()):
     '''
     Find Zero for a limited range with newton-Raphson Mehtod
@@ -71,6 +73,7 @@ def newtson(func,t,arg=()):
         h=func(t,*arg)/der
         t=t-h
     return t
+
 def Intriga(array,depth):
     '''
     for intrigation of 1d array for a depth of indepe var.
@@ -93,12 +96,12 @@ def Intriga(array,depth):
     for i in range(0,n-2,2):
         y=y+(h/3.0)*(g[i]+4.0*g[i+1]+g[i+2])
     return y
+
 def null_detect(array):
     '''
     Under Devlopment
     '''
     return np.where(np.diff(np.signbit(array)))[0]
-
 
 def Hydro_wave(y,t,L,E):
     '''
@@ -114,6 +117,7 @@ def Optimise(E,L):
     '''
     sol=insolent(Hydro_wave,domain,init_psi,step,arg=(L,E))[1][-1]
     return sol
+
 def RefineEnergy(E_top,E_bot,Nodes,L):
     '''
     Refine energy for a node.
@@ -146,6 +150,7 @@ def RefineEnergy(E_top,E_bot,Nodes,L):
         elif(nodes_ist<0):
             EB=initE
     return EB,ET
+
 def EmploySolute(n,L):
     '''
     Helper function for initiation.
@@ -156,6 +161,7 @@ def EmploySolute(n,L):
     new_EB,new_EB=RefineEnergy(E_Top,E_Bot,nodes+1,L)
     newE=newtson(Optimise,new_EB,arg=(L,))
     return newE
+
 domain=[1e-18,30]
 init_psi=[0,1]
 step=1000
@@ -164,8 +170,8 @@ N=1
 L=0
 
 nodes=np.arange(1,4,1)
-for ii in nodes:
-    E_new=EmploySolute(ii,L)
+for j in nodes:
+    E_new=EmploySolute(j,L)
     x,psi=insolent(Hydro_wave,domain,init_psi,step,arg=(L,E_new))[0:2]
     dx=x[1]-x[0]
     psi=np.array(psi)
