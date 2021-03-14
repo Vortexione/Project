@@ -2,7 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def insolent(func,t_span,y0,mxtep,arg=()):
+def insolent(func,t_span,y0,mxtep,arg=(),meta=False):
     '''
     Return Solution of a Given `Funtion` .
 
@@ -16,6 +16,8 @@ def insolent(func,t_span,y0,mxtep,arg=()):
         Initial values of y.
     mxtep : int
         Use in step determination.
+    meta : optional,False
+        return all data used in [x,Z1,Z2]
     Returns
     -------
     Output : arraylike
@@ -46,7 +48,10 @@ def insolent(func,t_span,y0,mxtep,arg=()):
         Z1.append(z1e)
         z2e=z2e+l
         Z2.append(z2e)
-    return [x,Z1,Z2]
+    if meta==False:
+        return Z1
+    else:
+        return [x,Z1,Z2]
 
 def newtson(func,t,arg=()):
     '''
@@ -99,7 +104,7 @@ def Intriga(array,depth):
 
 def null_detect(array):
     '''
-    Under Devlopment
+    Find the change of sign of array, gives it index array.
     '''
     return np.where(np.diff(np.signbit(array)))[0]
 
@@ -115,7 +120,7 @@ def Optimise(E,L):
     '''
         Function for further Optimitation in  Energy.
     '''
-    sol=insolent(Hydro_wave,domain,init_psi,step,arg=(L,E))[1][-1]
+    sol=insolent(Hydro_wave,domain,init_psi,step,arg=(L,E))[-1]
     return sol
 
 def RefineEnergy(E_top,E_bot,Nodes,L):
@@ -127,9 +132,9 @@ def RefineEnergy(E_top,E_bot,Nodes,L):
     EB=E_bot
     psi=[1]
     while (abs(EB-ET)>tol or psi[-1]>1e-3):
-        print(ET,EB)
+        print('Calibrate Energies Bottom Energy : ',EB,'Top Energy : ',ET)
         initE=(ET+EB)/2.0
-        psi=insolent(Hydro_wave,domain,init_psi,step,arg=(L,initE))[1]
+        psi=insolent(Hydro_wave,domain,init_psi,step,arg=(L,initE))
         nodes_ist=len(null_detect(psi))-1
         if nodes_ist>Nodes+1:
             ET=initE
@@ -160,6 +165,7 @@ def EmploySolute(n,L):
     E_Bot=-9.0
     new_EB,new_EB=RefineEnergy(E_Top,E_Bot,nodes+1,L)
     newE=newtson(Optimise,new_EB,arg=(L,))
+    print('Final Energies of Node:',nodes,'Energy : ',newE)
     return newE
 
 domain=[1e-18,30]
@@ -172,7 +178,7 @@ L=0
 nodes=np.arange(1,4,1)
 for j in nodes:
     E_new=EmploySolute(j,L)
-    x,psi=insolent(Hydro_wave,domain,init_psi,step,arg=(L,E_new))[0:2]
+    x,psi=insolent(Hydro_wave,domain,init_psi,step,arg=(L,E_new),meta=True)[0:2]
     dx=x[1]-x[0]
     psi=np.array(psi)
     prob=psi*psi
