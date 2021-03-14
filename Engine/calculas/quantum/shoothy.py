@@ -16,6 +16,8 @@ def insolent(func,t_span,y0,mxtep,arg=(),meta=False):
         Initial values of y.
     mxtep : int
         Use in step determination.
+    arg : tuple
+        extra data to pass in function.
     meta : optional,False
         return all data used in [x,Z1,Z2]
     Returns
