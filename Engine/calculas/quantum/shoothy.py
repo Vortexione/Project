@@ -1,11 +1,9 @@
+#..Author :: Suman Mandal 
 import numpy as np
 import matplotlib.pyplot as plt
 def insolent(func,t_span,y0,mxtep,arg=()):
     '''
     Return Solution of a Given `Funtion` .
-
-
-    ..version :: 1.0.0 
 
     parameters
     ----------
@@ -15,9 +13,8 @@ def insolent(func,t_span,y0,mxtep,arg=()):
         The initial value point should be the first element of this sequence.
     y0 : arraylike
         Initial values of y.
-    finx : float 
-        final value of the independent value.
-
+    mxtep : int
+        Use in step determination.
     Returns
     -------
     Output : arraylike
@@ -50,6 +47,22 @@ def insolent(func,t_span,y0,mxtep,arg=()):
         Z2.append(z2e)
     return [x,Z1,Z2]
 def newtson(func,t,arg=()):
+    '''
+    Find Zero for a limited range with newton-Raphson Mehtod
+    
+    parameters
+    ----------
+
+    func : callable y(t,....)
+        function of which zeros will be found.
+    arg : tuple
+        extra agrument will be passed.
+    
+    return
+    ------
+
+    output : value at which the function wil be zero.
+    '''
     wei=0.00001
     der=(func(t+wei,*arg)-func(t,*arg))/wei
     h=func(t,*arg)/der
@@ -59,6 +72,20 @@ def newtson(func,t,arg=()):
         t=t-h
     return t
 def Intriga(array,depth):
+    '''
+    for intrigation of 1d array for a depth of indepe var.
+    
+    parameter
+    ---------
+    array : arraylike
+        value of the array.
+    depth : float
+        increment of x.
+    
+    return
+    ------
+    output : integral value of the function array.
+    '''
     h=depth
     n=len(array)
     g=array
@@ -67,18 +94,30 @@ def Intriga(array,depth):
         y=y+(h/3.0)*(g[i]+4.0*g[i+1]+g[i+2])
     return y
 def null_detect(array):
+    '''
+    Under Devlopment
+    '''
     return np.where(np.diff(np.signbit(array)))[0]
 
 
 def Hydro_wave(y,t,L,E):
+    '''
+        Reduced Schrodinger radial wave equation. where U(r)=r*R(r)
+    '''
     z1,z2=y
     dydt=[z2,(z1*(-2/t))+(((L*(L+1))/t**2)-E)*z1]
     return dydt
 
 def Optimise(E,L):
+    '''
+        Function for further Optimitation in  Energy.
+    '''
     sol=insolent(Hydro_wave,domain,init_psi,step,arg=(L,E))[1][-1]
     return sol
 def RefineEnergy(E_top,E_bot,Nodes,L):
+    '''
+    Refine energy for a node.
+    '''
     tol=1e-12
     ET=E_top
     EB=E_bot
@@ -108,6 +147,9 @@ def RefineEnergy(E_top,E_bot,Nodes,L):
             EB=initE
     return EB,ET
 def EmploySolute(n,L):
+    '''
+    Helper function for initiation.
+    '''
     nodes=n-L-1
     E_Top=30.0
     E_Bot=-9.0
