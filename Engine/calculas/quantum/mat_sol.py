@@ -15,7 +15,7 @@ ava=3
 dom=[1e-10,10]
  
 #Step-Size
-n=1000
+n=10
  
 r,d=np.linspace(dom[0],dom[1],n,retstep=True)
  
@@ -24,7 +24,7 @@ r,d=np.linspace(dom[0],dom[1],n,retstep=True)
 V=np.zeros((n,n))
 K=np.zeros((n,n))
 for i in range(n):
-    V[i,i]=-((e**2)*np.exp(r[i]/a))/r[i]
+    V[i,i]=-((e**2)/r[i])
     K[i,i]=-2
  
 for i in range(n-1):
@@ -32,9 +32,10 @@ for i in range(n-1):
     K[i+1,i]=1
  
 H=((-(h**2)/(2*m*d**2))*K)+V
- 
+
 #Eigen Function and Energy Sorting:
 E,U=np.linalg.eig(H)
+print(E,U)
 Es=np.sort(E)
 for i in range(1,ava+1):
     print('|{}| No  s-State Energy : '.format(i-1),Es[i])
@@ -47,7 +48,7 @@ for i in range(n):
 style.use('dark_background') 
 fig,ax=plt.subplots(ncols=1,nrows=1)
  
- 
+
 for i,j in zip(Eindex,range(ava)):
     ax.plot(r,U[:,i],lw=0.7,label='${}_{}$={}eV'.format('E',j,round(Es[j+1],3)))    
  
