@@ -1,0 +1,11 @@
+Program name : qm_n3.py
+
+Input: 
+|!| How much state you want in output?1
+|!| lower boundary value of domain : 0.13
+|!| Upper boundary value of domain : 20
+|!| Step size of the calculation : 1000
+Image name : iqm_n3.png
+
+Output:
+|0| No  1s-State Energy :  -0.14274019309653907 eV

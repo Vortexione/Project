@@ -1,0 +1,40 @@
+Program name : qm_n1.py
+
+(a)
+INPUT:
+|!| How much state you want in output?1
+|!| lower boundary value of domain : 1e-20
+|!| Upper boundary value of domain : 10
+|!| Value of a : 3
+|!| Step size of the calculation : 1000
+
+Image name: iqm_n1(a).png
+
+OUTPUT:
+|0| No  1s-State Energy :  -9.385991816440878 eV
+
+(b)
+INPUT:
+|!| How much state you want in output?1
+|!| lower boundary value of domain : 1e-20
+|!| Upper boundary value of domain : 10
+|!| Value of a : 5
+|!| Step size of the calculation : 1000
+
+Image name: iqm_n1(b).png
+
+OUTPUT:
+|0| No  1s-State Energy :  -10.946709145167775 eV
+
+(c)
+INPUT:
+|!| How much state you want in output?1
+|!| lower boundary value of domain : 1e-20
+|!| Upper boundary value of domain : 10
+|!| Value of a : 7
+|!| Step size of the calculation : 1000
+
+Image name: iqm_n1(c).png
+
+OUTPUT:
+|0| No  1s-State Energy :  -11.666557494848508 eV

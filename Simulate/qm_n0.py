@@ -1,8 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import style
-from matplotlib.offsetbox import AnnotationBbox,OffsetImage
-from matplotlib._png import read_png
 #Input Junction[Constant]:
 h=1973
 m=0.511e+6
@@ -65,12 +63,6 @@ ax.yaxis.label.set_color('#3785DF')
 ax.xaxis.label.set_color('#3785DF')
 ax.title.set_color('#3785DF')
 
-#logo handle:
-sloxo=read_png('Slogo.png')
-image_box=OffsetImage(sloxo,zoom=0.05)
-xy=[1,2]
-ab_logo=AnnotationBbox(image_box,xy,xybox=(30.0,-30.0),boxcoords='offset points')
-ax.add_artist(ab_logo)
 #Grid Handling:
 ax.minorticks_on()
 ax.axhline(y=0,ls='--',c='#3785DF',lw=0.5)

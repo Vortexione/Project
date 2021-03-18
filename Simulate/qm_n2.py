@@ -42,7 +42,7 @@ E,U=np.linalg.eig(H)
 
 Es=np.sort(E)
 for i in range(1,ava+1):
-    print('|{}| No  {}s-State Energy : '.format(i-1,i),Es[i],'eV')
+    print('|{}| No  {}s-State Energy : '.format(i-1,i),Es[i],'MeV')
 Eindex=[]
 for i in range(n):
     for j in range(1,ava+1):
@@ -54,11 +54,11 @@ fig,ax=plt.subplots(ncols=1,nrows=1)
  
 
 for i,j in zip(Eindex,range(ava)):
-    ax.plot(r,U[:,i],lw=0.7,label='${}_{}$={}eV'.format('E',j,round(Es[j+1],3)))    
+    ax.plot(r,U[:,i],lw=0.7,label='${}_{}$={}MeV'.format('E',j,round(Es[j+1],3)))    
  
 #Title label Handle:
 ax.set_ylabel('$\Psi$ , Wave Function')
-ax.set_xlabel('r in $\AA$ (relative distance)')
+ax.set_xlabel('r in fm')
 ax.set_title('s(l=0)-Wave Solution of ${H}^{1}_{1}$')
 ax.yaxis.label.set_color('#3785DF')
 ax.xaxis.label.set_color('#3785DF')
