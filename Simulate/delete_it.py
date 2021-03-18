@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import style
+from matplotlib.offsetbox import AnnotationBbox,OffsetImage
+from matplotlib._png import read_png
 #Input Junction[Constant]:
 h=1973
 m=0.511e+6
@@ -9,13 +11,16 @@ a=3
 #User Input DashBoard:
  
 #How much state in output:
-ava=10
+ava=int(input('|!| How much state you want in output?'))
  
 #Domain of Wave Function which consist lower value of r(relative distance) and higher value of r.
+
 dom=[1e-10,60]
- 
+dom[0]=float(input('|!| lower boundary value of domain : '))
+dom[1]=float(input('|!| Upper boundary value of domain : '))
 #Step-Size
 n=10000
+n=int(input('|!| Step size of the calculation : '))
  
 r,d=np.linspace(dom[0],dom[1],n,retstep=True)
  
@@ -38,7 +43,7 @@ E,U=np.linalg.eig(H)
 
 Es=np.sort(E)
 for i in range(1,ava+1):
-    print('|{}| No  s-State Energy : '.format(i-1),Es[i])
+    print('|{}| No  {}s-State Energy : '.format(i-1,i),Es[i],'eV')
 Eindex=[]
 for i in range(n):
     for j in range(1,ava+1):
@@ -59,6 +64,13 @@ ax.set_title('s(l=0)-Wave Solution of ${H}^{1}_{1}$')
 ax.yaxis.label.set_color('#3785DF')
 ax.xaxis.label.set_color('#3785DF')
 ax.title.set_color('#3785DF')
+
+#logo handle:
+sloxo=read_png('Slogo.png')
+image_box=OffsetImage(sloxo,zoom=0.05)
+xy=[1,2]
+ab_logo=AnnotationBbox(image_box,xy,xybox=(30.0,-30.0),boxcoords='offset points')
+ax.add_artist(ab_logo)
 #Grid Handling:
 ax.minorticks_on()
 ax.axhline(y=0,ls='--',c='#3785DF',lw=0.5)

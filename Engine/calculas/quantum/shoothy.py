@@ -129,11 +129,11 @@ def RefineEnergy(E_top,E_bot,Nodes,L):
     '''
     Refine energy for a node.
     '''
-    tol=1e-12
+    tol=1e-15
     ET=E_top
     EB=E_bot
     psi=[1]
-    while (abs(EB-ET)>tol or psi[-1]>1e-3):
+    while (abs(EB-ET)>tol or psi[-1]>1e-5):
         print('Calibrate Energies Bottom Energy : ',EB,'Top Energy : ',ET)
         initE=(ET+EB)/2.0
         psi=insolent(Hydro_wave,domain,init_psi,step,arg=(L,initE))
@@ -170,14 +170,14 @@ def EmploySolute(n,L):
     print('Final Energies of Node:',nodes,'Energy : ',newE)
     return newE
 
-domain=[1e-18,30]
+domain=[1e-18,60]
 init_psi=[0,1]
-step=1000
+step=5000
 
 N=1
 L=0
 
-nodes=np.arange(1,4,1)
+nodes=np.arange(1,10,1)
 for j in nodes:
     E_new=EmploySolute(j,L)
     x,psi=insolent(Hydro_wave,domain,init_psi,step,arg=(L,E_new),meta=True)[0:2]

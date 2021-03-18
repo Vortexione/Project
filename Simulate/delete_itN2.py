@@ -2,20 +2,24 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import style
 #Input Junction[Constant]:
-h=1973
-m=0.511e+6
+h=197.3
+m=940
 e=3.795
-a=3
 #User Input DashBoard:
  
 #How much state in output:
-ava=10
+ava=int(input('|!| How much state you want in output?'))
  
 #Domain of Wave Function which consist lower value of r(relative distance) and higher value of r.
+#-6,8;-3,3.5
 dom=[1e-10,60]
- 
+dom[0]=float(input('|!| lower boundary value of domain : '))
+dom[1]=float(input('|!| Upper boundary value of domain : '))
+k=float(input('|!| Value of k : '))
+b=float(input('|!| Value of b : '))
 #Step-Size
-n=10000
+n=3000
+n=int(input('|!| Step size of the calculation : '))
  
 r,d=np.linspace(dom[0],dom[1],n,retstep=True)
  
@@ -24,7 +28,7 @@ r,d=np.linspace(dom[0],dom[1],n,retstep=True)
 V=np.zeros((n,n))
 K=np.zeros((n,n))
 for i in range(n):
-    V[i,i]=-((e**2)/r[i])
+    V[i,i]=((k/2)*(r[i]**2))+((b/3)*(r[i]**3))
     K[i,i]=-2
  
 for i in range(n-1):
@@ -38,7 +42,7 @@ E,U=np.linalg.eig(H)
 
 Es=np.sort(E)
 for i in range(1,ava+1):
-    print('|{}| No  s-State Energy : '.format(i-1),Es[i])
+    print('|{}| No  {}s-State Energy : '.format(i-1,i),Es[i],'eV')
 Eindex=[]
 for i in range(n):
     for j in range(1,ava+1):

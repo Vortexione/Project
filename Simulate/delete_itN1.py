@@ -9,13 +9,17 @@ a=3
 #User Input DashBoard:
  
 #How much state in output:
-ava=10
+ava=int(input('|!| How much state you want in output?'))
  
 #Domain of Wave Function which consist lower value of r(relative distance) and higher value of r.
+
 dom=[1e-10,60]
- 
+dom[0]=float(input('|!| lower boundary value of domain : '))
+dom[1]=float(input('|!| Upper boundary value of domain : '))
+a=float(input('|!| Value of a : '))
 #Step-Size
 n=10000
+n=int(input('|!| Step size of the calculation : '))
  
 r,d=np.linspace(dom[0],dom[1],n,retstep=True)
  
@@ -24,7 +28,7 @@ r,d=np.linspace(dom[0],dom[1],n,retstep=True)
 V=np.zeros((n,n))
 K=np.zeros((n,n))
 for i in range(n):
-    V[i,i]=-((e**2)/r[i])
+    V[i,i]=-(((e**2)/r[i])*np.exp(-r[i]/a))
     K[i,i]=-2
  
 for i in range(n-1):
@@ -38,7 +42,7 @@ E,U=np.linalg.eig(H)
 
 Es=np.sort(E)
 for i in range(1,ava+1):
-    print('|{}| No  s-State Energy : '.format(i-1),Es[i])
+    print('|{}| No  {}s-State Energy : '.format(i-1,i),Es[i],'eV')
 Eindex=[]
 for i in range(n):
     for j in range(1,ava+1):
@@ -55,7 +59,7 @@ for i,j in zip(Eindex,range(ava)):
 #Title label Handle:
 ax.set_ylabel('$\Psi$ , Wave Function')
 ax.set_xlabel('r in $\AA$ (relative distance)')
-ax.set_title('s(l=0)-Wave Solution of ${H}^{1}_{1}$')
+ax.set_title('s(l=0)-Wave Solution ')
 ax.yaxis.label.set_color('#3785DF')
 ax.xaxis.label.set_color('#3785DF')
 ax.title.set_color('#3785DF')
