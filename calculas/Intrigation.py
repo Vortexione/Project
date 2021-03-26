@@ -3,33 +3,32 @@ import numpy as np
 
 
 
-def Intriga(function,upper,lower):
+def Intrian(func,t_span,arg=()):
     """
 
     Returns Intrigation  of a given function.
 
-    Returns Inrigral value of `function` for certain `upper` and `lower`.
+    Returns Inrigral value of `function` for certain range.
 
-    Parameters
+    parameters
     ----------
-    function : string 
-        Function followed by string i.e, numpy [accessable] 
-    Upper : float
-        Upper limit of the intrigation
-    Lower : float 
-        Lower limit of the intrigation
-    Returns
+    func : callable y(t,...)
+        function for the intrigation
+    t_span : list
+        integral range
+    arg : tuple
+        if there was any extra argument to the function.
+
+    returns
     -------
+    output : float   
         The intrigral value of the function.
     """
     n=1001
-    x=np.linspace(lower,upper,n)
-    def g(x):
-        return eval(function)
-    h=(upper-lower)/n
+    x,h=np.linspace(t_span[0],t_span[1],n,retstep=True)
     y=0
     for i in range(0,n-2,2):
-        y=y+(h/3.0)*(g(x[i])+4.0*g(x[i+1])+g(x[i+2]))
+        y=y+(h/3.0)*(func(x[i],*arg)+4.0*func(x[i+1],*arg)+func(x[i+2],*arg))
     return y
 
 def eular(Function=None,nsteps=1000,inix=None,iniy=None,finx=None):
@@ -294,7 +293,7 @@ def ODE2(Function_1=None,Function_2=None,nsteps=1000,inix=None,iniy=None,iniz=No
 
     return [x,Y,Z,ye,ze]
 
-def insolent(func,t_span,y0,mxtep,arg=(),meta=False):
+def odeint(func,t_span,y0,mxtep,arg=(),meta=False):
     '''
     Return Solution of a Given `Funtion` .
 
