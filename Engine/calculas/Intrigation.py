@@ -1,20 +1,14 @@
-from tqdm import tqdm 
-import time
+#..Author:: Suman Mandal
 import numpy as np
 
 
 
 def Intriga(function,upper,lower):
     """
-    Copyright (C)  2020  Noatic Digital LLB. All rights reserved.
 
     Returns Intrigation  of a given function.
 
     Returns Inrigral value of `function` for certain `upper` and `lower`.
-
-    ..version:: 1.0.2
-
-    ..author :: Suman Mandal
 
     Parameters
     ----------
@@ -41,12 +35,6 @@ def Intriga(function,upper,lower):
 def eular(Function=None,nsteps=1000,inix=None,iniy=None,finx=None):
     '''
     Return Solution of a Given `Funtion` .
-
-    ..Author:: Suman Mandal
-
-    ..Copyright:: (C) Noatic Digital LLB. All rights reserved.
-
-    ..version :: 1.0.0 
 
     parameters
     ----------
@@ -91,12 +79,6 @@ def modi_eular(Function=None,nsteps=1000,inix=None,iniy=None,finx=None):
     '''
     Return Solution of a Given `Funtion` .
 
-    ..Author:: Suman Mandal
-
-    ..Copyright:: (C) Noatic Digital LLB. All rights reserved.
-
-    ..version :: 1.0.0 
-
     parameters
     ----------
     Function : string
@@ -140,12 +122,6 @@ def modi_eular(Function=None,nsteps=1000,inix=None,iniy=None,finx=None):
 def runge(Function=None,nsteps=1000,inix=None,iniy=None,finx=None):
     '''
     Return Solution of a Given `Funtion` .
-
-    ..Author:: Suman Mandal
-
-    ..Copyright:: (C) Noatic Digital LLB. All rights reserved.
-
-    ..version :: 1.0.0 
 
     parameters
     ----------
@@ -197,12 +173,6 @@ def runge_kutta(Function=None,nsteps=1000,inix=None,iniy=None,finx=None):
     '''
     Return Solution of a Given `Funtion` .
 
-    ..Author:: Suman Mandal
-
-    ..Copyright:: (C) Noatic Digital LLB. All rights reserved.
-
-    ..version :: 1.0.0 
-
     parameters
     ----------
     Function : string
@@ -252,12 +222,6 @@ def runge_kutta(Function=None,nsteps=1000,inix=None,iniy=None,finx=None):
 def ODE2(Function_1=None,Function_2=None,nsteps=1000,inix=None,iniy=None,iniz=None,finx=None):
     '''
     Return Solution of a Given `Funtion` .
-
-    ..Author:: Suman Mandal
-
-    ..Copyright:: (C) Noatic Digital LLB. All rights reserved.
-
-    ..version :: 1.0.0 
 
     parameters
     ----------
@@ -329,6 +293,59 @@ def ODE2(Function_1=None,Function_2=None,nsteps=1000,inix=None,iniy=None,iniz=No
 
 
     return [x,Y,Z,ye,ze]
+
+def insolent(func,t_span,y0,mxtep,arg=(),meta=False):
+    '''
+    Return Solution of a Given `Funtion` .
+
+    parameters
+    ----------
+    func : callable(y,t,...)
+        Computes the derivative of y at t.
+    t_span : arraylike
+        The initial value point should be the first element of this sequence.
+    y0 : arraylike
+        Initial values of y.
+    mxtep : int
+        Use in step determination.
+    arg : tuple
+        extra data to pass in function.
+    meta : optional,False
+        return all data used in [x,Z1,Z2]
+    Returns
+    -------
+    Output : arraylike
+        Contain solution of the ode.
+    '''
+    n=mxtep
+    x0,xf=t_span
+    h=(xf-x0)/n
+    x=np.linspace(x0,xf,n+1)
+    z10,z20=y0
+    z1e=z10
+    z2e=z20
+    Z1=[z10]
+    Z2=[z20]
+    for i in range(n):
+        k1,l1=func([z1e,z2e],x[i],*arg)
+        k1,l1=h*k1,h*l1
+        k2,l2=func([(z1e+0.5*k1),(z2e+0.5*l1)],x[i]+0.5*h,*arg)
+        k2,l2=h*k2,h*l2
+        k3,l3=func([(z1e+0.5*k2),(z2e+0.5*l2)],x[i]+0.5*h,*arg)
+        k3,l3=h*k3,h*l3
+        k4,l4=func([(z1e+k3),(z2e+l3)],x[i]+h,*arg)
+        k4,l4=h*k4,h*l4
+
+        k=(k1+2.0*k2+2.0*k3+k4)/6
+        l=(l1+2.0*l2+2.0*l3+l4)/6
+        z1e=z1e+k
+        Z1.append(z1e)
+        z2e=z2e+l
+        Z2.append(z2e)
+    if meta==False:
+        return Z1
+    else:
+        return [x,Z1,Z2]
 
 #purpose for observing all methods:
 if __name__=='__main__':
