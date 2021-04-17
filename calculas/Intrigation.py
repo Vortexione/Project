@@ -23,6 +23,20 @@ def Intrian(func,t_span,arg=()):
     -------
     output : float   
         The intrigral value of the function.
+    
+    Eaxmples
+    --------
+    >>> def Afunction(y,t,a):
+    >>>     p=y
+    >>>     dydt=[t+x+a]
+    >>>     return dydt
+    >>> Inrigan(Afuction,t_span=[0,15],arg=(1,))
+    
+    Also You can Use a function like :
+    
+    >>> def Nfunction(y,t,a):
+    >>>     return t+x+a
+    >>> Inrigan(Afuction,t_span=[0,15],arg=(1,)) 
     """
     n=1001
     x,h=np.linspace(t_span[0],t_span[1],n,retstep=True)
@@ -57,6 +71,10 @@ def eular(Function=None,nsteps=1000,inix=None,iniy=None,finx=None):
                                     contain correponding values.
                                 ye : float
                                     final value of dependent variable to final value. 
+    Examples
+    --------
+    >>> #let you function is f(x,y,a,b)=x+y+a+b
+    >>> eular('x+y+{}+{}'.format(a,b),inix=0,iniy=2,finx=5)
     '''
     import numpy as np
     def func(x,y):
@@ -252,6 +270,10 @@ def ODE2(Function_1=None,Function_2=None,nsteps=1000,inix=None,iniy=None,iniz=No
                                     final value of dependent variable to final value.
                                 ze : float
                                     final value of slop of the dependent variable. 
+    Examples:
+    >>> #let your Equation is (D2+D+5)y=x where D=d/dx
+    >>> #transform as dy/dx=z & dz/dx=x-5y-z
+    >>> ODE2(Function_1='z',Function_2='x-5y-z',inix=0,iniy=1,iniz=1.5,finx=9)
     '''
     import numpy as np
     def func1(x,y,z):
@@ -315,6 +337,17 @@ def odeint(func,t_span,y0,mxtep,arg=(),meta=False):
     -------
     Output : arraylike
         Contain solution of the ode.
+    
+    Examples
+    --------
+    >>> #let your Equation is (D2+D+5)y=x where D=d/dx
+    >>> #transform as dy/dx=z & dz/dx=x-5y-z
+    >>> #Make a function
+    >>> def Afunction(y,t,a):
+    >>>     p,q=y
+    >>>     dydt=[q,p-5*y-q]       # here q=z,p=y
+    >>>     return dydt
+    >>> odient(Afunction,[0,4],[1,0.5],mxtep=1000,arg=(,)) 
     '''
     n=mxtep
     x0,xf=t_span
@@ -349,5 +382,4 @@ def odeint(func,t_span,y0,mxtep,arg=(),meta=False):
 #purpose for observing all methods:
 if __name__=='__main__':
     pass
-
 

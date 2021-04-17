@@ -20,6 +20,9 @@ def fin_diff(x=None,order=None):
     Returns
     -------
         A list consist of the forward finite differences.
+    
+    Examples
+    --------
     """
     n=len(x)
     
