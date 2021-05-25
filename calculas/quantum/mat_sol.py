@@ -9,13 +9,13 @@ a=3
 #User Input DashBoard:
  
 #How much state in output:
-ava=10
+ava=5
  
 #Domain of Wave Function which consist lower value of r(relative distance) and higher value of r.
-dom=[1e-10,60]
+dom=[-2,2]
  
 #Step-Size
-n=10000
+n=1000
  
 r,d=np.linspace(dom[0],dom[1],n,retstep=True)
  
@@ -24,7 +24,7 @@ r,d=np.linspace(dom[0],dom[1],n,retstep=True)
 V=np.zeros((n,n))
 K=np.zeros((n,n))
 for i in range(n):
-    V[i,i]=-((e**2)/r[i])
+    V[i,i]=-0.5*r[i]**2
     K[i,i]=-2
  
 for i in range(n-1):
